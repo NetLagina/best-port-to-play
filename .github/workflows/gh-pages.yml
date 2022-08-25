@@ -10,7 +10,10 @@ jobs:
   deploy:
     runs-on: ubuntu-20.04
     permissions:
-      contents: write
+      permissions:
+  	contents: read
+  	pages: write
+  	id-token: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
@@ -37,10 +40,10 @@ jobs:
           hugo-version: '0.101.0'
           extended: true
 
-      - name: Build
+      - name: Build Site
         run: hugo --minify
 
-      - name: Deploy
+      - name: Deploy Site
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'
         with:
