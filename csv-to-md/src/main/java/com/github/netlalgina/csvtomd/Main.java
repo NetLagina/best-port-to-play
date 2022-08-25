@@ -2,16 +2,17 @@ package com.github.netlalgina.csvtomd;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Main {
 
     private static final char CSV_DELIMITER = ';';
     private static final int CSV_COLUMNS = 9;
+    private static final String CSV_FORBIDDEN_SYMBOLS_REGEX = "[ /\\:*?\"<>|\0]+";
 
     public static void main(String[] args) {
         if (args.length != 2) {
@@ -21,7 +22,6 @@ public class Main {
 
         final Path path = Path.of(args[0]);
         if(!Files.exists(path)) {
-            System.out.println(path.toAbsolutePath());
             System.out.println(2);
             System.exit(2);
         }
@@ -40,7 +40,7 @@ public class Main {
                 System.out.println(4);
                 System.exit(4);
             }
-            Path writeFile = Path.of(args[1] + elements[0] + ".md");
+            Path writeFile = Path.of(args[1] + makeFileName(elements[0]) + ".md");
             try {
                 Files.deleteIfExists(writeFile);
                 Files.createFile(writeFile);
@@ -83,6 +83,10 @@ public class Main {
             }
         }
 
+    }
+
+    private static String makeFileName(String name) {
+        return name.toLowerCase(Locale.ENGLISH).replaceAll(CSV_FORBIDDEN_SYMBOLS_REGEX, "_");
     }
 
 }

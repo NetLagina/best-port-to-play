@@ -31,7 +31,7 @@ jobs:
         run: mvn package --file ./csv-to-md/pom.xml
 
       - name: Generate mds
-        run: ls . && java -jar ./csv-to-md/target/csv-to-md-jar-with-dependencies.jar data/games.csv content/docs/games/
+        run: java -jar ./csv-to-md/target/csv-to-md-jar-with-dependencies.jar data/games.csv content/docs/games/
 
       - name: Build
         run: hugo --minify
