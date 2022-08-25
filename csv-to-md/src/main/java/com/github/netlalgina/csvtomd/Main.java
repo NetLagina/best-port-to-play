@@ -2,6 +2,7 @@ package com.github.netlalgina.csvtomd;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Main {
 
         final Path path = Path.of(args[0]);
         if(!Files.exists(path)) {
+            System.out.println(path.toAbsolutePath());
             System.out.println(2);
             System.exit(2);
         }
