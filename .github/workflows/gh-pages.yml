@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-20.04
     permissions:
       permissions:
-  	contents: read
-  	pages: write
-  	id-token: write
+        contents: read
+        pages: write
+        id-token: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
