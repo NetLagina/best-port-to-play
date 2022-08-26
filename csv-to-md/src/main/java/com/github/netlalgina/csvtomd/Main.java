@@ -16,13 +16,13 @@ public class Main {
 
     public static void main(String[] args) {
         if (args.length != 2) {
-            System.out.println(1);
+            System.out.println("ERROR: args length should be 2, got " + args.length);
             System.exit(1);
         }
 
         final Path path = Path.of(args[0]);
         if(!Files.exists(path)) {
-            System.out.println(2);
+            System.out.println("ERROR: file " + path + " doesn't exists");
             System.exit(2);
         }
 
@@ -30,14 +30,14 @@ public class Main {
         try {
             lines = Files.readAllLines(path);
         } catch (IOException e) {
-            System.out.println(3);
+            System.out.println("ERROR: while reading " + path + " file");
             System.exit(3);
         }
 
         for (var line : lines) {
             var elements = line.split(String.valueOf(CSV_DELIMITER));
             if (elements.length != CSV_COLUMNS) {
-                System.out.println(4);
+                System.out.println("ERROR: can't parse csv-file, too many columns in line " + elements[0] + ", should be less or equals to " + CSV_COLUMNS);
                 System.exit(4);
             }
             Path writeFile = Path.of(args[1] + makeFileName(elements[0]) + ".md");
@@ -78,7 +78,7 @@ public class Main {
                 Files.writeString(writeFile, "### Comment" + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, elements[8] + System.lineSeparator(), StandardOpenOption.APPEND);
             } catch (IOException e) {
-                System.out.println(5);
+                System.out.println("ERROR: while writing to file " + writeFile);
                 System.exit(5);
             }
         }
