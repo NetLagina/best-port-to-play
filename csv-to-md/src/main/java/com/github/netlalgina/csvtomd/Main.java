@@ -36,7 +36,7 @@ public class Main {
 
         for (var line : lines) {
             var elements = line.split(String.valueOf(CSV_DELIMITER));
-            if (elements.length != CSV_COLUMNS) {
+            if (elements.length > CSV_COLUMNS) {
                 System.out.println("ERROR: can't parse csv-file, too many columns in line " + elements[0] + ", should be less or equals to " + CSV_COLUMNS);
                 System.exit(4);
             }
@@ -54,29 +54,45 @@ public class Main {
                         StandardOpenOption.APPEND);
                 Files.writeString(writeFile, "# " + elements[0] + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, "## Also known as" + System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, elements[1] + System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
+
+                if (elements.length > 1 && !elements[1].isEmpty()) {
+                    Files.writeString(writeFile, "## Also known as" + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(writeFile, elements[1] + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
+                }
+
                 Files.writeString(writeFile, "## Platforms" + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, elements[2] + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
+
                 Files.writeString(writeFile, "## Fullest version" + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, elements[3] + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, "### Comment" + System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, elements[4] + System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
+
+                if (elements.length > 4 && !elements[4].isEmpty()) {
+                    Files.writeString(writeFile, "### Comment" + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(writeFile, elements[4] + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
+                }
+
                 Files.writeString(writeFile, "## Most stable version" + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, elements[5] + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, "### Comment" + System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, elements[6] + System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
+
+                if (elements.length > 6 && !elements[6].isEmpty()) {
+                    Files.writeString(writeFile, "### Comment" + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(writeFile, elements[6] + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
+                }
+
                 Files.writeString(writeFile, "## Best look" + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, elements[7] + System.lineSeparator(), StandardOpenOption.APPEND);
                 Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, "### Comment" + System.lineSeparator(), StandardOpenOption.APPEND);
-                Files.writeString(writeFile, elements[8] + System.lineSeparator(), StandardOpenOption.APPEND);
+
+                if (elements.length > 8 && !elements[8].isEmpty()) {
+                    Files.writeString(writeFile, "### Comment" + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(writeFile, elements[8] + System.lineSeparator(), StandardOpenOption.APPEND);
+                }
             } catch (IOException e) {
                 System.out.println("ERROR: while writing to file " + writeFile);
                 System.exit(5);
