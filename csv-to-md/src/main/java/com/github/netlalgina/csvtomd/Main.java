@@ -11,7 +11,7 @@ import java.util.Locale;
 public class Main {
 
     private static final char CSV_DELIMITER = ';';
-    private static final int CSV_COLUMNS = 9;
+    private static final int CSV_COLUMNS = 10;
     private static final String CSV_FORBIDDEN_SYMBOLS_REGEX = "[ /\\:*?\"<>|\0]+";
 
     public static void main(String[] args) {
@@ -92,6 +92,12 @@ public class Main {
                 if (elements.length > 8 && !elements[8].isEmpty()) {
                     Files.writeString(writeFile, "### Comment" + System.lineSeparator(), StandardOpenOption.APPEND);
                     Files.writeString(writeFile, elements[8] + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(writeFile, System.lineSeparator(), StandardOpenOption.APPEND);
+                }
+
+                if (elements.length > 9 && !elements[9].isEmpty()) {
+                    Files.writeString(writeFile, "## Additional links" + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(writeFile, elements[9] + System.lineSeparator(), StandardOpenOption.APPEND);
                 }
             } catch (IOException e) {
                 System.out.println("ERROR: while writing to file " + writeFile);

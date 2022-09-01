@@ -9,8 +9,10 @@ It is impossible to collect information about all existing games alone, so if yo
 ## How to contribute
 Just open data/games.scv with notepad or any spreadsheet program, add/change information and make a PR. Currently file has format:
 ```
-game title;other editions;all platforms where game exist;platfroms with the fullest editions;comments;platforms with the most stable editions;comments;platforms with the greates look;comments
+game title;other editions;all platforms where game exist;platfroms with the fullest editions;comments;platforms with the most stable editions;comments;platforms with the greates look;comments;additional links
 ```
 Please note that "greatest look" does not always mean the newest. In some remasters, new shaders are added to old models, and this only spoils the overall look. Yes, this is a matter of taste, each such ambiguous case will be discussed in PR.
+
+Additional links - as References in Wikipedia; there may be articles, videos from YouTube, etc.
 
 Currently CI/CD configured to parse and build pages from csv automatically but number of columns in csv can not grow without changes in convertation script (/csv-to-md folder).
