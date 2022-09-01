@@ -13,6 +13,7 @@ public class Main {
     private static final char CSV_DELIMITER = ';';
     private static final int CSV_COLUMNS = 10;
     private static final String CSV_FORBIDDEN_SYMBOLS_REGEX = "[ /\\:*?\"<>|\0]+";
+    private static final String CSV_LIST_MARKDOWN_REGEX = "(?<=.)(\\*)";
 
     public static void main(String[] args) {
         if (args.length != 2) {
@@ -97,7 +98,10 @@ public class Main {
 
                 if (elements.length > 9 && !elements[9].isEmpty()) {
                     Files.writeString(writeFile, "## Additional links" + System.lineSeparator(), StandardOpenOption.APPEND);
-                    Files.writeString(writeFile, elements[9] + System.lineSeparator(), StandardOpenOption.APPEND);
+                    Files.writeString(
+                            writeFile,
+                            elements[9].replaceAll(CSV_LIST_MARKDOWN_REGEX, System.lineSeparator() + "*") + System.lineSeparator(),
+                            StandardOpenOption.APPEND);
                 }
             } catch (IOException e) {
                 System.out.println("ERROR: while writing to file " + writeFile);
